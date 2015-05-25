@@ -24,7 +24,7 @@ class Weather:
             self.c = self.conn.cursor()
         except:
             print("Could not connect sqlite3 to db.")
-            sys.exit()
+            sys.exit(1)
 
     def get_humidity(self):
         return DHT.read_retry(self.sensor_h, self.dht_pin) 
@@ -56,5 +56,4 @@ class Weather:
 if __name__ == "__main__":
     w = Weather()
     w.save_data()
-
 
