@@ -4,6 +4,8 @@ import sqlite3
 import Adafruit_BMP.BMP085 as BMP
 import Adafruit_DHT as DHT
 import sys
+import serial
+import time
 
 ALTITUDE_EST = 12.0
 SLP_EST = 102150.0
@@ -53,7 +55,15 @@ class Weather:
         self.conn.commit()
         self.conn.close()
 
+    def display(self):
+        while(True):
+            temp = self.sensor_p.read_temperature(scale='f')
+            s = serial.Serial('/dev/ttyUSB0', 9600)
+            s.write(str(temp)[:2])
+            time.sleep(7)
+            
 if __name__ == "__main__":
     w = Weather()
     w.save_data()
+    w.display()
 
