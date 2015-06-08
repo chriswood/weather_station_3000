@@ -2,12 +2,12 @@ import os
 import gps
 from gps import gps, WATCH_ENABLE 
 from time import sleep
-import threading
+from threading import Thread
  
 
-class GpsPoller(threading.Thread):
+class GpsPoller(Thread):
     def __init__(self):
-        threading.Thread.__init__(self)
+        Thread.__init__(self)
         self.gpsd = gps(mode=WATCH_ENABLE) #starting the stream of info
         self.current_value = None
         self.running = True #setting the thread running to true
